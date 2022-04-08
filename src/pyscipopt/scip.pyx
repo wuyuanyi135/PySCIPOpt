@@ -1467,6 +1467,12 @@ cdef class Model:
         PY_SCIP_CALL(SCIPreleaseVar(self._scip, &scip_var))
         return pyVar
 
+    def getNegatedVar(self, Variable var):
+        cdef SCIP_VAR* _nvar
+        PY_SCIP_CALL(SCIPgetNegatedVar(self._scip, var.scip_var, &_nvar))
+
+        return Variable.create(_nvar)
+
     def getTransformedVar(self, Variable var):
         """Retrieve the transformed variable.
 
